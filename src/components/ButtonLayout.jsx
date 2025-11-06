@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-function ButtonLayout() {
+function ButtonLayout({ isDark }) {
   const colors = [
-    "#FF6B6B", 
+    "#FF6B6B",
     "#FF922B",
-    "#FFD93D", 
-    "#2ECC71", 
-    "#1E90FF", 
-    "#9B5DE5", 
-    "#F72585", 
-    "#B5651D", 
-    "#00FFFF"
+    "#FFD93D",
+    "#2ECC71",
+    "#1E90FF",
+    "#9B5DE5",
+    "#F72585",
+    "#B5651D",
+    "#00FFFF",
   ];
 
   const [buttonColors, setButtonColors] = useState(Array(9).fill(null));
@@ -26,17 +26,13 @@ function ButtonLayout() {
     setColorIndex(colorIndex + 1);
   };
 
-  // ✅ Reset Function
   const handleReset = () => {
     setButtonColors(Array(9).fill(null));
     setColorIndex(0);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-
-
-      {/* ✅ Button Grid */}
+    <div className="flex flex-col items-center justify-center">
       <div className="grid grid-cols-3 gap-4">
         {buttonColors.map((color, index) => (
           <button
@@ -44,19 +40,26 @@ function ButtonLayout() {
             onClick={() => handleClick(index)}
             disabled={color !== null}
             style={{ backgroundColor: color || "" }}
-            className={`w-24 h-16 rounded-xl text-stone-50 font-semibold transition-all duration-200
-              ${color ? "cursor-not-allowed opacity-80" : "bg-gray-400 hover:bg-gray-600 hover:scale-105"}
-            `}
+            className={`w-24 h-16 rounded-xl font-semibold transition-all duration-200 ${
+              color
+                ? "cursor-not-allowed opacity-80"
+                : isDark
+                ? "bg-gray-700 text-white hover:bg-gray-600 hover:scale-105"
+                : "bg-gray-300 text-gray-900 hover:bg-gray-400 hover:scale-105"
+            }`}
           >
             {color ? "Used" : "Click Me"}
           </button>
         ))}
       </div>
 
-      {/* ✅ Reset Button */}
       <button
         onClick={handleReset}
-        className="mt-10 px-6 py-2 bg-green-700 text-white rounded-lg font-medium hover:bg-gray-700 transition-all duration-200"
+        className={`mt-10 px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+          isDark
+            ? "bg-green-600 text-white hover:bg-green-500"
+            : "bg-green-700 text-white hover:bg-green-600"
+        }`}
       >
         Reset
       </button>
